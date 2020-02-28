@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import GridScene from './scenes/gridScene'
 import LoginScreen from './scenes/login'
 
-function HomeScreen({ navigation }) {
+function HomeTMPScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Home Screen</Text>
@@ -28,6 +28,10 @@ function HomeScreen({ navigation }) {
         title="Go to Profil"
         onPress={() => navigation.navigate('Profil')}
       />
+      <Button
+        title="Go to RealHome"
+        onPress={() => navigation.navigate('realHome')}
+      />
 
     </View>
   );
@@ -35,8 +39,26 @@ function HomeScreen({ navigation }) {
 
 function Login({ navigation }) {
   return (
-    <LoginScreen/>
-    
+    <LoginScreen />
+
+  );
+}
+
+function HomeScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Details Screen</Text>
+      <Button
+        title="Go to Details... again"
+        onPress={() => navigation.push('Details')}
+      />
+      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
+      <Button title="Go back" onPress={() => navigation.goBack()} />
+      <Button
+        title="Go back to first screen in stack"
+        onPress={() => navigation.popToTop()}
+      />
+    </View>
   );
 }
 
@@ -91,10 +113,10 @@ storeData = async () => {
 getData = async () => {
   try {
     const value = await AsyncStorage.getItem('@storage_Key')
-    if(value !== null) {
+    if (value !== null) {
       // value previously stored
     }
-  } catch(e) {
+  } catch (e) {
     // error reading value
   }
 }
@@ -108,7 +130,7 @@ var imagesList = [];
 
 function GalleryScreen({ navigation }) {
   const [medias, setMedias] = useState([]);
-  
+
   // renderItem = ({ item, index }) => {
   //   console.log('passe')
   //   if (item.empty === true) {
@@ -118,20 +140,20 @@ function GalleryScreen({ navigation }) {
 
   //   console.log("not empty")
   //   return (
-      
+
   //     <Image source={{uri: item.key }} style={styles.imageBox}/>
-      
+
   //   );
   // };
 
   return (
-    <View style={{flex: 1}}>
-      <GridScene/>
-      
+    <View style={{ flex: 1 }}>
+      <GridScene />
+
     </View>
-        
-    
-   
+
+
+
   );
 }
 
@@ -162,7 +184,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
     margin: 1,
-    height: Dimensions.get('window').width / numColumns,  
+    height: Dimensions.get('window').width / numColumns,
   },
 
   item: {
@@ -200,11 +222,12 @@ const styles = StyleSheet.create({
 const Stack = createStackNavigator();
 
 function App() {
- 
+
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Navigator initialRouteName="TMPHome">
+        <Stack.Screen name="TMPHome" component={HomeTMPScreen} />
+        <Stack.Screen name="realHome" component={HomeScreen} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="Gallery" component={GalleryScreen} />
@@ -213,7 +236,7 @@ function App() {
     </NavigationContainer>
   );
 
-  
+
 }
 
 
