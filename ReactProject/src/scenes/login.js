@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import styles from "./style";
-import {Keyboard, Text, View, TextInput, TouchableWithoutFeedback, Alert, KeyboardAvoidingView} from 'react-native';
+import {Keyboard, Text, View, Button, TextInput, TouchableWithoutFeedback, Alert, KeyboardAvoidingView} from 'react-native';
 
 
 

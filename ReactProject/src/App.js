@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import ImagePicker from 'react-native-image-crop-picker';
 import AsyncStorage from '@react-native-community/async-storage';
 import GridScene from './scenes/gridScene'
+import LoginScreen from './scenes/login'
 
 function HomeScreen({ navigation }) {
   return (
@@ -32,21 +33,10 @@ function HomeScreen({ navigation }) {
   );
 }
 
-function LoginScreen({ navigation }) {
+function Login({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Details Screen</Text>
-      <Button
-        title="Go to Details... again"
-        onPress={() => navigation.push('Details')}
-      />
-      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
-      <Button title="Go back" onPress={() => navigation.goBack()} />
-      <Button
-        title="Go back to first screen in stack"
-        onPress={() => navigation.popToTop()}
-      />
-    </View>
+    <LoginScreen/>
+    
   );
 }
 
@@ -215,7 +205,7 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="Gallery" component={GalleryScreen} />
         <Stack.Screen name="Profil" component={ProfilScreen} />
