@@ -22,9 +22,8 @@ class GridScene extends Component {
 
     
     componentDidMount() {
-        let items = []
         this.setState({
-            dataSource: items,
+            dataSource: imageList,
         });
     }
     render() {
