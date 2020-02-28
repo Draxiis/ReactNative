@@ -1,22 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text, Image, Button, StyleSheet, ImageBackground, TouchableOpacity, Animated } from 'react-native'
-import {NavigationContainer} from '@react-navigation/native';
-import BackImage from '../images/splash_back.png'
-import LoginScene from './login.js';
-import 'react-native-gesture-handler';
+import {
+    View,
+    Text,
+    StyleSheet,
+    ImageBackground,
+    TouchableOpacity,
+    Button,
+} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import StackNavigator from '../navigators/stackNavigator'
-
-
-
-class LoadingScene extends Component {
-    
-    displayRegister = () => {
-        alert("register pressed")
-    }
-
+class HomeScene extends Component {
     render() {
-        const {navigate} = this.props.navigation;
         return (
             <ImageBackground
                 source={require('../images/splash_back.png')}
@@ -40,14 +35,9 @@ class LoadingScene extends Component {
 
 
             </ImageBackground>
-
-
-
         );
     }
 }
-
-export default LoadingScene;
 
 const styles = StyleSheet.create({
     container: {
@@ -87,3 +77,5 @@ const styles = StyleSheet.create({
     }
 
 })
+
+export default HomeScene;
