@@ -1,8 +1,11 @@
 import * as React from 'react';
-import { Button, View, Text, Container, Content, TouchableOpacity, List, StyleSheet, FlatList, Dimensions } from 'react-native';
+import { useState } from 'react';
+import { Button, View, Text, Container, Content, TouchableOpacity, List, StyleSheet, FlatList, Image, Dimensions } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import ImagePicker from 'react-native-image-crop-picker';
+import AsyncStorage from '@react-native-community/async-storage';
+import GridScene from './scenes/gridScene'
 
 function HomeScreen({ navigation }) {
   return (
@@ -87,72 +90,54 @@ function ProfilScreen({ navigation }) {
 
 
 
-
-
-
-const data = [
-  { key: 'A' }, { key: 'B' }, { key: 'C' }, { key: 'D' }, { key: 'E' }, { key: 'F' }, { key: 'G' }, { key: 'H' }, { key: 'I' }, { key: 'J' },
-  // { key: 'K' },
-  // { key: 'L' },
-];
-
-const formatData = (data, numColumns) => {
-  const numberOfFullRows = Math.floor(data.length / numColumns);
-
-  let numberOfElementsLastRow = data.length - (numberOfFullRows * numColumns);
-  while (numberOfElementsLastRow !== numColumns && numberOfElementsLastRow !== 0) {
-    data.push({ key: `blank-${numberOfElementsLastRow}`, empty: true });
-    numberOfElementsLastRow++;
+storeData = async () => {
+  try {
+    await AsyncStorage.setItem('@storage_Key', 'stored value')
+  } catch (e) {
+    // saving error
   }
+}
 
-  return data;
-};
+getData = async () => {
+  try {
+    const value = await AsyncStorage.getItem('@storage_Key')
+    if(value !== null) {
+      // value previously stored
+    }
+  } catch(e) {
+    // error reading value
+  }
+}
+
+
+
+var data = [];
 
 const numColumns = 3;
 var imagesList = [];
 
 function GalleryScreen({ navigation }) {
-
-  renderItem = ({ item, index }) => {
-    if (item.empty === true) {
-      return <View style={[styles.item, styles.itemInvisible]} />;
-    }
-    return (
-      <View
-        style={styles.item}
-      >
-        <Text style={styles.itemText}>{item.key}</Text>
-      </View>
-    );
-  };
+  const [medias, setMedias] = useState([]);
   
+  // renderItem = ({ item, index }) => {
+  //   console.log('passe')
+  //   if (item.empty === true) {
+  //     console.log('emptu')
+  //     return;
+  //   }
+
+  //   console.log("not empty")
+  //   return (
+      
+  //     <Image source={{uri: item.key }} style={styles.imageBox}/>
+      
+  //   );
+  // };
+
   return (
-
     <View style={{flex: 1}}>
-      <FlatList
-        data={formatData(data, numColumns)}
-        
-        renderItem={this.renderItem}
-        numColumns={numColumns}
-      />
-      <View style={{height: 40}}>
-
-        <Button title='zzzz' onPress={() =>
-          ImagePicker.openPicker({
-            width: 300,
-            height: 400,
-            cropping: true
-          }).then(image => {
-            console.log('PASSE OK');
-            imagesList += image.data.uri;
-            console.log(imagesList);
-          })
-        }>
-
-
-
-        </Button>
-      </View>
+      <GridScene/>
+      
     </View>
         
     
@@ -172,7 +157,24 @@ function GalleryScreen({ navigation }) {
 
 
 const styles = StyleSheet.create({
-  
+  imageThumbnail: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 100,
+  },
+  MainContainer: {
+    justifyContent: 'center',
+    flex: 1,
+    paddingTop: 30,
+  },
+  imageBox: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+    margin: 1,
+    height: Dimensions.get('window').width / numColumns,  
+  },
+
   item: {
     backgroundColor: '#4D243D',
     alignItems: 'center',
